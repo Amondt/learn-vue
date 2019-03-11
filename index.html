@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Learn vue.js</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="./js/main.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+<body>
+    <div class="nav-bar"></div>
+    <div id="app">
+        <div class="product">
+            <div class="product-image">
+                <img :src="image" :alt="altText">
+            </div>
+            <div class="product-info">
+                <h1>{{ product }}</h1>
+                <p>{{ description }}</p>
+                <a :href="link">See more products like this</a>
+                <p v-if="inventory > 10">In Stock</p>
+                <p v-else-if="inventory <= 10 && inventory > 0">Almost sold out!</p>
+                <p v-else :class="{ outOfStock: inStock }">Out of Stock</p>
+                <!-- <span v-if="onSale">On sale!</span> -->
+                <ul>
+                    <li v-for="detail in details">{{ detail }}</li>
+                </ul>
+                <div id="color-select">
+                    <div class="color-box" v-for="variant in variants" :key="variant.variantId" :style="{ backgroundColor: variant.variantColor }" @mouseover="updateProduct(variant.variantImage)"></div>
+                </div>
+                <div id="sizes">
+                    <div v-for="size in sizes" :key="size.size">
+                        <h3>{{ size.size }}</h3>
+                        <ul>
+                            <li>{{ "EU: " + size.sizeEU }}</li>
+                            <li>{{ "US: " + size.sizeUS }}</li>
+                            <li>{{ "UK: " + size.sizeUK }}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="cart">
+                    <p>Cart ({{ cart }})</p>
+                </div>
+                <button @click="addToCart" :disabled="!inStock" :class="{ disabledButton: !inStock }">Add to <br> cart</button>
+                <button @click="removeToCart" :class="{ disabledButton: this.cart == 0 }">Remove from <br> cart</button>
+            </div>
+        </div>
+        
+    </div>
+
+</body>
+</html>
