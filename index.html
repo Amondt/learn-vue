@@ -16,6 +16,19 @@
         </div>
         <product :premium="premium" @add-to-cart="updateCart" @rem-to-cart="removeToCart"></product>
     </div>
+
+    <script type="text/x-template" id="info-tabs-template">
+        <div style="marginTop: 30px;">
+            <div>
+                <span class="tab"
+                    v-for="(tab, index) in tabs" 
+                    :key="index" 
+                    @click="selectedTab = tab" 
+                    :class="{ activeTab: selectedTab === tab }">{{ tab }}</span>
+            </div>
+        </div>
+    </script>
+    
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="./js/main.js"></script>
 </body>

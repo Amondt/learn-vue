@@ -1,8 +1,18 @@
 var eventBus = new Vue()
 
+Vue.component('info-tabs', {
+    template: '#info-tabs-template',
+    data () {
+        return {
+            tabs: ["Details", "Shipping"],
+            selectedTab: "Details"
+        }
+    }
+})
+
 Vue.component('product-tabs', {
     template: `
-        <div>
+        <div style="marginTop: 30px;">
             <div>
                 <span class="tab" v-for="(tab, index) in tabs" :key="index" @click="selectedTab = tab" :class="{ activeTab: selectedTab === tab }">{{ tab }}</span>
             </div>
@@ -144,8 +154,10 @@ Vue.component('product', {
             <!-- <p v-else-if="inventory <= 10 && inventory > 0">Almost sold out!</p> -->
             <p v-else :class="{ outOfStock: !inStock }">Out of Stock</p>
             <span>{{ sale }}</span>
-            <p>Shipping : {{ shipping }}</p>
 
+            <info-tabs></info-tabs>
+
+            <p>Shipping : {{ shipping }}</p>
             <product-details :details="details"></product-details>
 
             <div id="color-select">
